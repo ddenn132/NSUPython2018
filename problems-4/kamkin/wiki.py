@@ -77,9 +77,12 @@ def relieve_text_from_brackets(text):
 
 
 def is_correct_link(tag):
+    #uprint(tag)
     if tag.name is not 'a':
         return False
-    if tag.has_attr('class') and tag['class'] == 'new':
+    #if tag.has_attr('class'):
+    #    print(tag['class'] == ['new'])
+    if tag.has_attr('class') and tag['class'] == ['new']:
         return False
     if not tag.has_attr('href') or not tag['href'].startswith('/'):
         return False
@@ -87,6 +90,10 @@ def is_correct_link(tag):
 
 
 def find_all_blocks(main_block, *param, **param2):
+    #print(found)
+    #if found is None:
+    #    print("End of search: not found!")
+    #    sys.exit(-1)
     found = main_block.find(param, **param2)
     while found is not None:
         yield found
@@ -112,6 +119,7 @@ def find_first_link_on_page(request):
         if block is None:
             continue
         for link in find_all_link(block, is_correct_link):
+            #uprint(link)
             return link
 
 
@@ -145,7 +153,7 @@ def main(scheme, netloc, path, mode):
             print(title, url)
         else:
             print(title)
-        print(time())
+        #print(time())
         if visited_URLs.count(path) != 0:
             print("End of search: search is cycled")
             break
